@@ -1,12 +1,12 @@
 // Read in a patch file and check that the patches all apply correctly.
 const fs = require('fs')
 const assert = require('assert')
+const zlib = require('zlib')
 
 const filename = process.argv[2]
 
 if (filename == null) {
-  console.error(`Usage: $ node check.js file.json`)
-  console.error('(Run `gunzip xxx.json.gz` to uncompress data files)')
+  console.error(`Usage: $ node check.js file.json[.gz]`)
   process.exit(1)
 }
 
@@ -14,7 +14,11 @@ const {
   startContent,
   endContent,
   txns
-} = JSON.parse(fs.readFileSync(filename, 'utf-8'))
+} = JSON.parse(
+  filename.endsWith('.gz')
+  ? zlib.gunzipSync(fs.readFileSync(filename))
+  : fs.readFileSync(filename, 'utf-8')
+)
 
 let content = startContent
 

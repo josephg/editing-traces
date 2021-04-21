@@ -1,15 +1,19 @@
 // Read in a patch file and check that the patches all apply correctly.
 const fs = require('fs')
+const zlib = require('zlib')
 
 const filename = process.argv[2]
 
 if (filename == null) {
-  console.error(`Usage: $ node stats.js file.json`)
-  console.error('(Run `gunzip xxx.json.gz` to uncompress data files)')
+  console.error(`Usage: $ node stats.js file.json[.gz]`)
   process.exit(1)
 }
 
-const { startContent, endContent, txns } = JSON.parse(fs.readFileSync(filename, 'utf-8'))
+const { startContent, endContent, txns } = JSON.parse(
+  filename.endsWith('.gz')
+  ? zlib.gunzipSync(fs.readFileSync(filename))
+  : fs.readFileSync(filename, 'utf-8')
+)
 
 const round2dp = x => `${Math.round(x * 100) / 100}`
 const pct = (num, den) => `${round2dp(num/den * 100)}%`
