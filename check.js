@@ -33,7 +33,7 @@ for (let i = 0; i < txns.length; i++) {
   lastTime = t
 
   for (const [pos, delHere, insContent] of patches) {
-    assert(content.length >= pos)
+    assert(content.length >= pos + delHere)
     const before = content.slice(0, pos)
     const after = content.slice(pos + delHere)
     content = before + insContent + after
