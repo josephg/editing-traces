@@ -78,7 +78,7 @@ And `sveltecomponent.json.gz` contains edits from [this svelte component](https:
 
 Timestamps for these traces are limited to second resolution for privacy.
 
-These data sets are provided under the [https://creativecommons.org/licenses/by/4.0/](CC BY 4.0) license.
+These data sets are provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 
 #### automerge-paper.json.gz
