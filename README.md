@@ -27,7 +27,7 @@ The idea is, for each file you can start with `startContent` (so far, always the
 
 Each patch is an array with 3 fields:
 
-1. Position in the document. This number should be specified in unicode codepoints, which is the same as the string.length field when all characters in the document are ASCII (as is the case now).
+1. Position in the document. This number should be specified in *unicode codepoints*, which is the same as the string.length field when all characters in the document are ASCII (as is the case now).
 2. Number of deleted characters at this position
 3. Inserted characters at this position, or an empty string.
 
@@ -87,3 +87,13 @@ This data set is copied from the [automerge-perf](https://github.com/automerge/a
 
 Due to the editor in which the paper was written, each txn contains exactly 1 patch, which is either a single character insert or single character delete. Also there are no timestamps, so it looks like every edit happened at the same moment.
 
+
+#### seph-blog1.json.gz
+
+This contains the character by character editing trace while writing this blog post about CRDTs: [https://josephg.com/blog/crdts-go-brrr/](https://josephg.com/blog/crdts-go-brrr/). The post was written in markdown. This trace is similar to automerge-paper, since they both edit text - but it is about half the size and it has more variety in edit lengths.
+
+At one point while writing this post, I thought inlining the images in SVG might be a good idea - so there's a single large insert of 4kb of content of SVG source (followed by me hitting undo!)
+
+The final document length is 56769 characters.
+
+This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
