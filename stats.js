@@ -32,6 +32,7 @@ let insOfLength1 = 0
 let ins1OfLength1 = 0
 let numPatches = 0
 let charsInserted = 0
+let charsDeleted = 0
 
 let longestInsert = 0
 let longestDelete = 0
@@ -52,6 +53,7 @@ for (let i = 0; i < txns.length; i++) {
     if (insContent.length > 0) {
       numInserts++
       charsInserted += insContent.length
+
       if (insContent.length === 1) insOfLength1++
       if (insContent.length === 1 && patches.length === 1) ins1OfLength1++
 
@@ -68,6 +70,7 @@ for (let i = 0; i < txns.length; i++) {
 
     if (delHere > 0) {
       numDeletes++
+      charsDeleted += delHere
       lastPos = pos
 
       if (insContent.length === 0) hasDelete = true
@@ -85,7 +88,9 @@ for (let i = 0; i < txns.length; i++) {
 let depth = 0
 const log = (...args) => depth == 0 ? console.log(...args) : console.log(' '.repeat(depth-1), ...args)
 
-log(`There are ${txns.length} txns taking the document from ${startContent.length} to ${endContent.length} characters`)
+log(`There are ${txns.length} txns taking the document from ${[...startContent].length} to ${[...endContent].length} characters`)
+log(`In total, there are ${charsInserted} characters inserted and ${charsDeleted} characters deleted`)
+log(`Or ${charsInserted + charsDeleted} keystrokes`)
 depth += 2
 log(pct(txnsOfLength[1], txns.length), 'txns of length 1. Mean length', round2dp(numPatches / txns.length))
 log(pct(numTxnsWithInsert, txns.length), 'txns have insert')

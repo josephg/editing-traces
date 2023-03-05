@@ -37,6 +37,8 @@ for (let i = 0; i < txns.length; i++) {
   lastTime = t
 
   for (const [pos, delHere, insContent] of patches) {
+    // if (insContent != '') console.log('Ins', {pos, content: insContent})
+    // if (delHere != 0) console.log('Del', {pos, len: delHere})
     assert(content.length >= pos + delHere)
     const before = content.slice(0, pos)
     const after = content.slice(pos + delHere)
