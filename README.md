@@ -63,7 +63,9 @@ assert(content === endContent)
 
 Files are gzipped. Uncompress them on mac / linux using `gunzip *.gz`.
 
-See check.js for a more complete example.
+See check.js for a more complete example reading these files in javascript.
+
+The `rust/` directory also contains a rust crate which reads these data sets using serde.
 
 
 ## Unicode lengths. Oh my!
@@ -106,7 +108,7 @@ Since I'm counting positions & deleted lengths using unicode codepoints, all of 
 
 **But** if your code expects offsets to be specified by counting UTF8 bytes (eg in Rust or Go), you can't use the lengths in some data sets directly. You have 2 choices:
 
-1. Convert all positions & deleted lengths to byte offsets. ([Here's some rust code that does that](https://github.com/josephg/jumprope-rs/blob/f26a8506b2e2ec8e0e932d1021159e0448b42037/crdt-testdata/src/lib.rs#L44-L74)). Or
+1. Convert all positions & deleted lengths to byte offsets. ([Here's some rust code that does that](rust/src/lib.rs#L44-L74)). Or
 2. Use the dataset copies in the `ascii_only/` directory. These have non-ASCII characters replaced with underscores (`'_'`).
 
 Using the `ascii_only` variants should be fine for most benchmarks - there's only a few sporadic non-ASCII characters anyway. But there is definitely an English-speaking bias to this. I'd really like to have some data sets where the whole editing trace is in another language - especially a non-european language (where almost *none* of the characters are ASCII). If you speak another language, please contribute!
