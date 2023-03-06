@@ -99,7 +99,7 @@ The data sets included here specify positions using unicode codepoints - which i
 To process these editing traces correctly, we can think about 3 "types" of characters in a document:
 
 1. ASCII characters. These have a "size" of 1 in all measurements, in all languages. Simple and easy. The `automerge-paper` and `sveltecomponent` datasets only contain ASCII characters.
-2. Codepoints from `U+0080` to `U+FFFF`. These have size 1 in UCS2 languages (javascript, java, C#, ...). But number of UTF8 bytes is more than 1 - so in Rust and Go they'll look "longer". The `rustcode` and `seph-blog1` datasets contain some characters in this unicode range.
+2. Codepoints from `U+0080` to `U+FFFF`. These have a size 1 in UCS2 languages (javascript, java, C#, ...). But the number of UTF8 bytes is more than 1 - so in Rust and Go they'll appear "longer". The `rustcode` and `seph-blog1` datasets contain some characters in this unicode range.
 3. Codepoints from `U+10000` and up. The UCS2 length and UTF8 byte length will be more than 1 in all languages. None of the datasets contain characters in this unicode range.
 
 Since I'm counting positions & deleted lengths using unicode codepoints, all of these 3 categories are counted as "1 character" for the purpose of edit positions and delete lengths. Because none of these data sets (so far) use anything in group 3, you can naively use `string.slice()` in javascript, and equivalents in Java, C#, etc.
