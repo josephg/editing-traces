@@ -33,6 +33,9 @@ let ins1OfLength1 = 0
 let numPatches = 0
 let charsInserted = 0
 let charsDeleted = 0
+let numNonAscii = 0
+const nonAsciiChars = new Set()
+let numSurrogatePairs = 0
 
 let longestInsert = 0
 let longestDelete = 0
@@ -52,20 +55,35 @@ for (let i = 0; i < txns.length; i++) {
   for (const [pos, delHere, insContent] of patches) {
     if (insContent.length > 0) {
       numInserts++
-      charsInserted += insContent.length
+      const chars = [...insContent] // Split into unicode characters
+      charsInserted += chars.length
 
-      if (insContent.length === 1) insOfLength1++
-      if (insContent.length === 1 && patches.length === 1) ins1OfLength1++
+      if (chars.length === 1) insOfLength1++
+      if (chars.length === 1 && patches.length === 1) ins1OfLength1++
+
+      for (const c of chars) {
+        const charCode = c.charCodeAt(0)
+        if (charCode >= 128) {
+          numNonAscii++
+          nonAsciiChars.add(c)
+        }
+
+        if (charCode > 0xffff) {
+          // The character will use a surrogate pair in javascript.
+          // It is not safe to use string.splice (and friends).
+          numSurrogatePairs++
+        }
+      }
 
       // Should also check that the last edit was an insert..
       if (patches.length === 1 && pos === lastPos) numRuns++
 
-      lastPos = pos + insContent.length
+      lastPos = pos + chars.length
 
       if (delHere === 0) hasInsert = true
       else hasReplace = true
 
-      longestInsert = Math.max(longestInsert, insContent.length)
+      longestInsert = Math.max(longestInsert, chars.length)
     }
 
     if (delHere > 0) {
@@ -106,6 +124,14 @@ log(round2dp(charsInserted / numInserts), 'average characters per insert')
 log(pct(ins1OfLength1, txns.length), 'of txns just insert a single character')
 log(pct(numRuns, numInserts), 'of inserts run on from the previous edit')
 log(`The longest insert inserts ${longestInsert} characters`)
+log(`There are ${numNonAscii} non-ascii inserted characters ${!numNonAscii ? '' : `(Examples: ${[...nonAsciiChars.values()].slice(0, 10).join('')})`}`)
+if (numNonAscii > 0) log(`There are ${numSurrogatePairs} characters that need surrogate pairs to be stored in UTF16`)
+
+if (numSurrogatePairs > 0) {
+  log('WARNING: This data set contains characters that cannot be naively processed in languages')
+  log('that use UCS2 string encoding, like Javascript, Java and C#. See README for more information')
+}
+
 
 console.log()
 depth = 0
