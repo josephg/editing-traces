@@ -1,6 +1,8 @@
 # Single user editing traces
 
-This folder contains a set of single user editing traces. These are all real editing traces where a single user typed into a text document, and every editing event they made in the document was recorded.
+This folder contains a set of simple, sequential text editing traces from real editing sessions. In each of these recorded traces, every editing event a user made in the document was recorded.
+
+Most of these editing traces come from a single user typing. This folder also contains linearized (flattened) copies of the concurrent editing traces, where all editing positions have been transformed such that they can be applied in order into a text document to produce the correct result.
 
 These editing traces used to live in the root directory of this repository.
 
@@ -103,6 +105,15 @@ The final document length is 56769 characters.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
+
+
+#### friendsforever_flat.json.gz
+
+This is the same as the friendsforever trace from the concurrent editing traces, except all patch positions have been rewritten such that the whole trace can be applied in sequence. (In OT parlance, the editing trace has been fully linearized / transformed).
+
+Note this editing trace was actually written by 2 users typing concurrently, so the editing positions "ping pong" around a lot more than they will in other traces in this folder.
+
+This dataset is pure ASCII.
 
 
 ## Unicode lengths. Oh my!

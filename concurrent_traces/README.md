@@ -38,6 +38,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
 
 ```json
 {
+  "kind": "concurrent",
   "endContent": "yoooo ho ho\n",
   "numAgents": 2,
   "txns": [
