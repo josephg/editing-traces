@@ -75,6 +75,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
 
 Each file in this folder is a (gzipped) JSON document with the same format. The files contain JSON objects with the following top level fields:
 
+- `kind` (string): "concurrent"
 - `endContent` (string): The expected contents of the document after all changes have been applied. This exists mostly as a checksum / validation that the trace has been replayed correctly.
 - `numAgents` (integer): The number of user agents in this editing trace. User agents (below) will be identified using the integers from `0` to `numAgents - 1`.
 - `txns`: A list of "transaction" objects. Each object describes 1 or more patches, made by some peer, at some point in time. (Caveat: the last transaction may contain no patches)
