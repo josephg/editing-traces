@@ -111,3 +111,5 @@ I really want more data sets in this folder! Now its easier to make data sets li
 #### friendsforever.json.gz
 
 This document is a description & emotional debrief after watching an episode of *Friends* in 2023. The editing trace is quite short - there are only 26k inserts + deletes, to create a 21kb document. The document is pure ASCII. The 2 users were typing concurrently into the document with 1 second of (artificial) network latency. There are nearly 4000 transactions in this document.
+
+This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
