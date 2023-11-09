@@ -115,6 +115,8 @@ Note this editing trace was actually written by 2 users typing concurrently, so 
 
 This dataset is pure ASCII.
 
+This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
 
 ## Unicode lengths. Oh my!
 
