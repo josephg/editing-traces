@@ -119,7 +119,7 @@ This data set is provided under the [CC BY 4.0](https://creativecommons.org/lice
 
 #### `json-crdt-patch` and `json-crdt-blog-post`
 
-The `json-crdt-*` traces were collected by [JSON Joy](https://jsonjoy.com/) while designing
+The `json-crdt-*` traces were collected by [Vadim Dalecky](https://github.com/streamich) at [JSON Joy](https://jsonjoy.com/) while designing
 and implementing a JSON-like CRDT.
 
 The `json-crdt-patch` trace was collected while drafting the [JSON CRDT Patch specification](https://jsonjoy.com/specs/json-crdt-patch). There
@@ -129,7 +129,7 @@ the collected raw VSCode trace is corrupt.
 The `json-crdt-blog-post` trace was collected while drafting the [*List CRDT Benchmarks*](https://jsonjoy.com/blog/list-crdt-benchmarks) and
 [*Blazing Fast List CRDT*](https://jsonjoy.com/blog/performant-rga-list-crdt-algorithm) blog posts.
 
-These data sets is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license by [JSON Joy](https://jsonjoy.com/).
+These data sets are provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license by [JSON Joy](https://jsonjoy.com/).
 
 
 ## Unicode lengths. Oh my!
