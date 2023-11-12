@@ -2,7 +2,7 @@
 const fs = require('fs')
 const zlib = require('zlib')
 
-let filename = process.argv[2]
+const filename = process.argv[2]
 
 if (filename == null) {
   console.error(`Usage: $ node strip_non_ascii.js file.json[.gz]`)
