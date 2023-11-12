@@ -1,9 +1,8 @@
 // Read in a patch file and replace all non-ascii characters with ascii characters.
 const fs = require('fs')
-const assert = require('assert')
 const zlib = require('zlib')
 
-const filename = process.argv[2]
+let filename = process.argv[2]
 
 if (filename == null) {
   console.error(`Usage: $ node strip_non_ascii.js file.json[.gz]`)
@@ -16,8 +15,8 @@ const {
   txns
 } = JSON.parse(
   filename.endsWith('.gz')
-  ? zlib.gunzipSync(fs.readFileSync(filename))
-  : fs.readFileSync(filename, 'utf-8')
+  ? zlib.gunzipSync(fs.readFileSync(`sequential_traces/${filename}`))
+  : fs.readFileSync(`sequential_traces/${filename}`, 'utf-8')
 )
 
 // Replace all characters that aren't ascii characters. Unicode aware.
@@ -40,6 +39,7 @@ const result = {
 
 const json = JSON.stringify(result)
 const datasetName = filename.split('.')[0]
-const outFile = `ascii_only/${datasetName}.json`
-fs.writeFileSync(outFile, json)
+const outFile = `sequential_traces/ascii_only/${datasetName}.json.gz`
+const zipped = zlib.gzipSync(Buffer.from(json))
+fs.writeFileSync(outFile, zipped)
 console.log(`Rewrote dataset to ${outFile}`)
