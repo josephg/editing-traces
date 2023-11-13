@@ -75,7 +75,7 @@ See check.js for a more complete example reading these files in javascript.
 
 ## Data sets
 
-#### rustcode and sveltecomponent
+#### `rustcode` and `sveltecomponent`
 
 These data sets were recorded by me (Joseph Gentle) using the [vscode tracker](https://github.com/josephg/vscode-tracker/). The change sets include multi-cursor edits and refactoring operations.
 
@@ -88,14 +88,14 @@ Timestamps for these traces are limited to second resolution for privacy.
 These data sets are provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 
-#### automerge-paper.json.gz
+#### `automerge-paper`
 
 This data set is copied from the [automerge-perf](https://github.com/automerge/automerge-perf/) repository, prepared by [Martin Kleppmann](https://martin.kleppmann.com/). It contains the editing trace from writing [this LaTeX paper](https://arxiv.org/abs/1608.03960). The trace contains 182,315 inserts and 77,463 deletes.
 
 Due to the editor in which the paper was written, each txn contains exactly 1 patch, which is always either a single character insert or single character delete. Also there are no timestamps, so it looks like every edit happened at the same moment. This dataset is pure ASCII.
 
 
-#### seph-blog1.json.gz
+#### `seph-blog1`
 
 This contains the character by character editing trace while writing this blog post about CRDTs: [https://josephg.com/blog/crdts-go-brrr/](https://josephg.com/blog/crdts-go-brrr/). The post was written in markdown. This trace is similar to automerge-paper, since they both edit text - but it is about half the size and it has more variety in edit lengths.
 
@@ -106,8 +106,7 @@ The final document length is 56769 characters.
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 
-
-#### friendsforever_flat.json.gz
+#### `friendsforever_flat`
 
 This is the same as the friendsforever trace from the concurrent editing traces, except all patch positions have been rewritten such that the whole trace can be applied in sequence. (In OT parlance, the editing trace has been fully linearized / transformed).
 
@@ -116,6 +115,21 @@ Note this editing trace was actually written by 2 users typing concurrently, so 
 This dataset is pure ASCII.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+
+#### `json-crdt-patch` and `json-crdt-blog-post`
+
+The `json-crdt-*` traces were collected by [Vadim Dalecky](https://github.com/streamich) at [JSON Joy](https://jsonjoy.com/) while designing
+and implementing a JSON-like CRDT.
+
+The `json-crdt-patch` trace was collected while drafting the [JSON CRDT Patch specification](https://jsonjoy.com/specs/json-crdt-patch). There
+was also another trace collected while drafting the [JSON CRDT specification](https://jsonjoy.com/specs/json-crdt), but unfortunately
+the collected raw VSCode trace is corrupt.
+
+The `json-crdt-blog-post` trace was collected while drafting the [*List CRDT Benchmarks*](https://jsonjoy.com/blog/list-crdt-benchmarks) and
+[*Blazing Fast List CRDT*](https://jsonjoy.com/blog/performant-rga-list-crdt-algorithm) blog posts.
+
+These data sets are provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license by [JSON Joy](https://jsonjoy.com/).
 
 
 ## Unicode lengths. Oh my!
