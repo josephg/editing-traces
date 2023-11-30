@@ -6,7 +6,7 @@ These are (obviously) useful for benchmarking CRDTs - since the whole point of a
 
 These traces are made of a series of *transactions*. In each transaction, one user (`agent` field) made some set of edits (`patches` field) to bring the document from a starting state (specified by `parents`) to some other state.
 
-The patches work the same as they do in the sequential traces. But these data sets are quite complex to replay because of the `parents` field. The parents field contains indexes of other (previous) items in the list of transactions.
+The patches field works the same as in the sequential traces - its a tuple of `[pos, del_len, ins_content, timestamp]`. But these data sets are quite complex to replay because of the `parents` field. The parents field contains indexes of other (previous) items in the list of transactions.
 
 If the parents field contains:
 
@@ -47,7 +47,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "numChildren": 1,
       "agent": 0,
       "patches": [
-        [ 0, 0, "hi there\n" ]
+        [ 0, 0, "hi there\n", "2023-11-22T04:49:00+00:00" ]
       ]
     },
     {
@@ -56,7 +56,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "agent": 0,
       "patches": [
         [ 0, 8, "" ],
-        [ 0, 0, "yoooo" ]
+        [ 0, 0, "yoooo", "2023-11-22T04:50:00+00:00" ]
       ]
     },
     {
@@ -64,7 +64,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "numChildren": 0,
       "agent": 1,
       "patches": [
-        [ 5, 0, " ho ho" ]
+        [ 5, 0, " ho ho", "2023-11-22T04:51:00+00:00" ]
       ]
     }
   ]
@@ -86,7 +86,7 @@ Transactions (*txns*) have the following fields:
 - `parents`: This names the index of other items in the txn list that this transaction happened causally *after*. (Using 0-based indexing).
   - If the parents list is empty, the item comes after "root" (the start of time). The document always starts as the empty string (`""`) in this state. Only the first item in the list of transactions will have an empty parents list.
   - If the list contains 2 or more items, the state named by those items is merged before the operations contained in this transaction are applied. The list of parents must always be minimal. (All items in the parents list must be concurrent with all other items in the parents list).
-- `patches`: A list of patches made, in sequence, to the document. The format here is the same format as patches in the sequential traces folder. Each item in this array is a triple of (*position*, *num characters deleted*, *inserted string*). The position names the unicode codepoint offset into the document where this edit took place. (I may publish ascii-only variants of editing traces as well to make this easier to interpret). If there are multiple patches in a transaction, they are applied in sequence. (Each patch assumes all previous patches in the transaction have already been applied).
+- `patches`: A list of patches made, in sequence, to the document. The format here is the same format as patches in the sequential traces folder. Each item in this array is a quad of (*position*, *num characters deleted*, *inserted string*, *timestamp*). The position names the unicode codepoint offset into the document where this edit took place. (I may publish ascii-only variants of editing traces as well to make this easier to interpret). If there are multiple patches in a transaction, they are applied in sequence. (Each patch assumes all previous patches in the transaction have already been applied). The timestamp is specified in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) format - better known as the ISO 8601 format.
 - `agent`: This is an integer ID of the user agent which made this transaction. These are in the range from `0..numAgents` (non-inclusive).
 - `numChildren`: The number of other (later) txns which contain this txn in their parents list. This is included for convenience - but it can be trivially recomputed.
 
@@ -111,5 +111,14 @@ I really want more data sets in this folder! Now its easier to make data sets li
 #### friendsforever.json.gz
 
 This document is a description & emotional debrief after watching an episode of *Friends* in 2023. The editing trace is quite short - there are only 26k inserts + deletes, to create a 21kb document. The document is pure ASCII. The 2 users were typing concurrently into the document with 1 second of (artificial) network latency. There are nearly 4000 transactions in this document.
+
+This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
+
+
+#### clownschool.json.gz
+
+This dataset is a debrief / brain dump written by 2 people who went to clown school together. This trace is structurally very similar to friendsforever - the users were typing at the same time (though this time with 0.5secs of simulated latency). The resulting documents are the same size, too - coming in at 21kb. This editing trace has 5380 transactions.
+
+In this dataset we have also captured the precise timestamp of every single keystroke. This data is stored down to 1 second of accuracy.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
