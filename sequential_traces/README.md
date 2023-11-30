@@ -106,13 +106,15 @@ The final document length is 56769 characters.
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
 
-#### `friendsforever_flat`
+#### `friendsforever_flat`, `clownschool_flat`
 
-This is the same as the friendsforever trace from the concurrent editing traces, except all patch positions have been rewritten such that the whole trace can be applied in sequence. (In OT parlance, the editing trace has been fully linearized / transformed).
+These traces are the same as the friendsforever and clownschool traces from the concurrent editing data sets, except all patch positions have been rewritten such that the whole trace can be applied in sequence. (In OT parlance, the editing trace has been fully linearized / transformed).
 
-Note this editing trace was actually written by 2 users typing concurrently, so the editing positions "ping pong" around a lot more than they will in other traces in this folder.
+Note these editing traces were written by 2 users typing concurrently, so the editing positions "ping pong" around a lot more than they will in other traces in this folder.
 
-This dataset is pure ASCII.
+These datasets are pure ASCII.
+
+`clownschool_flat` also contains full timestamp information for every keystroke down to 1 second precision.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
