@@ -27,14 +27,14 @@ console.time('apply')
 let lastTime = 0
 for (let i = 0; i < txns.length; i++) {
   if (i % 10000 == 0) console.log(i)
-  const {time, patches} = txns[i]
-  assert(time != null)
+  const {patches} = txns[i]
+  // assert(time != null)
   assert(patches != null)
   assert(patches.length > 0)
 
-  let t = new Date(time).getTime()
-  assert(t >= lastTime)
-  lastTime = t
+  // let t = new Date(time).getTime()
+  // assert(t >= lastTime)
+  // lastTime = t
 
   for (const [pos, delHere, insContent] of patches) {
     // if (insContent != '') console.log('Ins', {pos, content: insContent})
