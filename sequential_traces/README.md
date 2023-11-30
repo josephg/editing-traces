@@ -19,10 +19,10 @@ These editing histories all have a simple, common format:
     endContent: '...', // Content after all patches have been applied
 
     txns: [{ // Each transaction contains 1 or more patches
-        time: '2021-04-19T06:06:58.000Z', // <-- ISO timestamp of change
         patches: [ //
-            [2206,0,"r"] // Patches like [position, numDeleted, inserted content]
-            [2204,1,""],
+            // Patches like [position, numDeleted, inserted content, iso timestamp]
+            [2206,0,"r",'2021-04-19T06:06:58.000Z']
+            [2204,1,"",'2021-04-19T06:06:58.000Z'],
             /// ...
         ]
     }, // ...

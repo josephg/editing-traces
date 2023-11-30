@@ -36,13 +36,15 @@ for (let i = 0; i < txns.length; i++) {
   // assert(t >= lastTime)
   // lastTime = t
 
-  for (const [pos, delHere, insContent] of patches) {
+  for (const [pos, delHere, insContent, timestamp] of patches) {
     // if (insContent != '') console.log('Ins', {pos, content: insContent})
     // if (delHere != 0) console.log('Del', {pos, len: delHere})
     assert(content.length >= pos + delHere)
     const before = content.slice(0, pos)
     const after = content.slice(pos + delHere)
     content = before + insContent + after
+
+    if (new Date(timestamp).toString() === 'Invalid Date') throw Error('invalid date')
   }
 }
 console.timeEnd('apply')
