@@ -4,9 +4,9 @@ This folder contains concurrent editing traces. Concurrent editing traces are ma
 
 These are (obviously) useful for benchmarking CRDTs - since the whole point of a text based CRDT is to allow users to do this sort of thing.
 
-These traces are made of a series of *transactions*. In each transaction, one user (`agent` field) made some set of edits (`patches` field) to bring the document from a starting state (specified by `parents`) to some other state.
+These traces are made of a series of *transactions*. In each transaction, one user (`agent` field) made some set of edits (`patches` field) to bring the document from a starting state (specified by `parents`) to some other state. Ideally, each transaction represents a self contained editing event that happened at a specific moment in time - for example, a keystroke, a paste event, etc.
 
-The patches field works the same as in the sequential traces - its a tuple of `[pos, del_len, ins_content, timestamp]`. But these data sets are quite complex to replay because of the `parents` field. The parents field contains indexes of other (previous) items in the list of transactions.
+The patches field works the same as in the sequential traces - its a tuple of `[pos, del_len, ins_content]`. But these data sets are quite complex to replay because of the `parents` field. The parents field contains indexes of other (previous) items in the list of transactions.
 
 If the parents field contains:
 
@@ -46,8 +46,9 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "parents": [],
       "numChildren": 1,
       "agent": 0,
+      "timestamp": "2023-11-22T04:49:00+00:00",
       "patches": [
-        [ 0, 0, "hi there\n", "2023-11-22T04:49:00+00:00" ]
+        [ 0, 0, "hi there\n"]
       ]
     },
     {
@@ -55,16 +56,18 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "numChildren": 1,
       "agent": 0,
       "patches": [
+      "timestamp": "2023-11-22T04:50:00+00:00",
         [ 0, 8, "" ],
-        [ 0, 0, "yoooo", "2023-11-22T04:50:00+00:00" ]
+        [ 0, 0, "yoooo"]
       ]
     },
     {
       "parents": [ 1 ],
       "numChildren": 0,
       "agent": 1,
+      "timestamp": "2023-11-22T04:51:00+00:00",
       "patches": [
-        [ 5, 0, " ho ho", "2023-11-22T04:51:00+00:00" ]
+        [ 5, 0, " ho ho"]
       ]
     }
   ]
@@ -89,6 +92,8 @@ Transactions (*txns*) have the following fields:
 - `patches`: A list of patches made, in sequence, to the document. The format here is the same format as patches in the sequential traces folder. Each item in this array is a quad of (*position*, *num characters deleted*, *inserted string*, *timestamp*). The position names the unicode codepoint offset into the document where this edit took place. (I may publish ascii-only variants of editing traces as well to make this easier to interpret). If there are multiple patches in a transaction, they are applied in sequence. (Each patch assumes all previous patches in the transaction have already been applied). The timestamp is specified in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) format - better known as the ISO 8601 format.
 - `agent`: This is an integer ID of the user agent which made this transaction. These are in the range from `0..numAgents` (non-inclusive).
 - `numChildren`: The number of other (later) txns which contain this txn in their parents list. This is included for convenience - but it can be trivially recomputed.
+- `timestamp`: The timestamp at which the transaction happened, if known. This timestamp is in [RFC3339 format](https://www.rfc-editor.org/rfc/rfc3339), aka ISO8601 timestamp format. A timestamp is always present even if it is not known.
+
 
 ### Rules
 
@@ -112,7 +117,7 @@ I really want more data sets in this folder! Now its easier to make data sets li
 
 This document is a description & emotional debrief after watching an episode of *Friends* in 2023. The editing trace is quite short - there are only 26k inserts + deletes, to create a 21kb document. The document is pure ASCII. The 2 users were typing concurrently into the document with 1 second of (artificial) network latency. There are nearly 4000 transactions in this document.
 
-This document does not contain timestamps. All changes appear to have happened at the unix epoch.
+This document does not contain timestamps. All changes appear to have happened at the unix epoch. And transaction boundaries were not captured during this recording, so every keystroke appears within its own entire transaction.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
 
@@ -121,6 +126,6 @@ This data set is provided under the [CC BY 4.0](https://creativecommons.org/lice
 
 This dataset is a debrief / brain dump written by 2 people who went to clown school together. This trace is structurally very similar to friendsforever - the users were typing at the same time (though this time with 0.5secs of simulated latency). The resulting documents are the same size, too - coming in at 21kb. This editing trace has 5380 transactions.
 
-In this dataset we have also captured the precise timestamp of every single keystroke. This data is stored down to 1 second of accuracy.
+In this dataset we have also captured the precise timestamp of every single keystroke. This data is stored down to 1 second of accuracy. And each transaction correctly references a single user edit.
 
 This data set is provided under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license.
