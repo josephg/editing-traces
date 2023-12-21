@@ -46,7 +46,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "parents": [],
       "numChildren": 1,
       "agent": 0,
-      "timestamp": "2023-11-22T04:49:00+00:00",
+      "time": "2023-11-22T04:49:00+00:00",
       "patches": [
         [ 0, 0, "hi there\n"]
       ]
@@ -56,7 +56,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "numChildren": 1,
       "agent": 0,
       "patches": [
-      "timestamp": "2023-11-22T04:50:00+00:00",
+      "time": "2023-11-22T04:50:00+00:00",
         [ 0, 8, "" ],
         [ 0, 0, "yoooo"]
       ]
@@ -65,7 +65,7 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "parents": [ 1 ],
       "numChildren": 0,
       "agent": 1,
-      "timestamp": "2023-11-22T04:51:00+00:00",
+      "time": "2023-11-22T04:51:00+00:00",
       "patches": [
         [ 5, 0, " ho ho"]
       ]
@@ -92,7 +92,7 @@ Transactions (*txns*) have the following fields:
 - `patches`: A list of patches made, in sequence, to the document. The format here is the same format as patches in the sequential traces folder. Each item in this array is a quad of (*position*, *num characters deleted*, *inserted string*, *timestamp*). The position names the unicode codepoint offset into the document where this edit took place. (I may publish ascii-only variants of editing traces as well to make this easier to interpret). If there are multiple patches in a transaction, they are applied in sequence. (Each patch assumes all previous patches in the transaction have already been applied). The timestamp is specified in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) format - better known as the ISO 8601 format.
 - `agent`: This is an integer ID of the user agent which made this transaction. These are in the range from `0..numAgents` (non-inclusive).
 - `numChildren`: The number of other (later) txns which contain this txn in their parents list. This is included for convenience - but it can be trivially recomputed.
-- `timestamp`: The timestamp at which the transaction happened, if known. This timestamp is in [RFC3339 format](https://www.rfc-editor.org/rfc/rfc3339), aka ISO8601 timestamp format. A timestamp is always present even if it is not known.
+- `time`: The timestamp at which the transaction happened, if known. This timestamp is in [RFC3339 format](https://www.rfc-editor.org/rfc/rfc3339), aka ISO8601 timestamp format. A timestamp is always present even if it is not known.
 
 
 ### Rules
