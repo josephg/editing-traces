@@ -55,8 +55,8 @@ https://github.com/josephg/automerge-converter/blob/master/src/main.rs
       "parents": [ 0 ],
       "numChildren": 1,
       "agent": 0,
-      "patches": [
       "time": "2023-11-22T04:50:00+00:00",
+      "patches": [
         [ 0, 8, "" ],
         [ 0, 0, "yoooo"]
       ]
